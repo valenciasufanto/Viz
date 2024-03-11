@@ -2,7 +2,7 @@
 
 Brian
 
-Professor
+Faculty
 
 Global Master of Business Administration
 
