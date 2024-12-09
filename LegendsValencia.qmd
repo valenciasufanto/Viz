@@ -1,0 +1,108 @@
+---
+title: "Legends"
+author: "Valencia"
+toc: true
+number-sections: true
+format: 
+  html: 
+   embed-resources: true
+---
+
+## Basic Box Plot
+ - `library(ggplot2)`: To load `ggplot` the function to process on R Script
+ 
+ - `ggplot(PlantGrowth, aes(x = group, y = weight))` Use `PlantGrowth` dataset and set `group` on the x-axis, and `weight` on the y-axis.
+
+```{r}
+library(ggplot2)
+ggplot(PlantGrowth, aes(x = group, y = weight)) +
+  geom_boxplot() +
+  labs(title = 'Basic Box Plot',
+       caption = 'Valencia, DV, THU 2024') +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+## Add Legends
+ - `library(gridExtra)`: To load the `gridextra` to use the `grid.arrange` function
+ - `fill`: To add colors inside the charts
+ - `color`: To add color of the outline of the charts
+ - `grid.arrange`: To arrange the boxplots
+ - `top`: To add title on the top of the plot
+ - `bottom`: To add captions at the bottom of the plot
+
+```{r}
+library(gridExtra)
+p1 <- ggplot(PlantGrowth, aes(x = group, y = weight)) + 
+  geom_boxplot()
+p2 <- ggplot(PlantGrowth, aes(x = group, 
+                              y = weight, 
+                              fill = group)) + 
+  geom_boxplot()
+p3 <- ggplot(PlantGrowth, aes(x = group, 
+                              y = weight,
+                              color = group)) + 
+  geom_boxplot()
+
+grid.arrange(p1,p2,p3,ncol=3,
+             top='Add Legend', 
+             bottom = 'Valencia, DV, THU 2024')
+
+```
+
+## Remove Legend
+ - `guides(fill = FALSE)` is to remove the Legend
+
+```{r}
+ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+  geom_boxplot() +
+  guides(fill = FALSE) +
+  ggtitle('Remove Legend') +
+  labs(caption = 'Valencia, DV, THU 2024') +
+  theme(plot.title = element_text(hjust=0.5))
+```
+
+## Change Color of Legend
+ - `scale_fill_brewer(palette = "Pastel2")` is to change the color/theme of the Legend
+
+```{r}
+ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Pastel2") +
+  ggtitle('Change Color of Legend') +
+  labs(caption = 'Valencia, DV, THU 2024') +
+  theme(plot.title = element_text(hjust=0.5))
+```
+
+## Change Position of Legend
+
+ - `legend.position = 'top'` is to change the position of the legend to the top
+ 
+```{r}
+ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Pastel2") +
+  ggtitle('Change Color of Legend') +
+  labs(caption = 'Valencia, DV, THU 2024') +
+  theme(plot.title = element_text(hjust=0.5),
+        legend.position = 'top')
+```
+
+## Practice
+ - `p2 <- p1 + theme(legend.position = 'bottom')` is to change legend position to top, bottom, left, and right
+
+```{r}
+p1 <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Pastel2") +
+  ggtitle('Change Color of Legend') +
+  labs(caption = 'Valencia, DV, THU 2024') +
+  theme(plot.title = element_text(hjust=0.5),
+        legend.position = 'top')
+p2 <- p1 + theme(legend.position = 'bottom')
+p3 <- p1 + theme(legend.position = 'left')
+p4 <- p1 + theme(legend.position = 'right')
+
+grid.arrange(p1, p2, p3, p4, ncol=2,
+             top='Chainging Position of Legend')
+```
+
